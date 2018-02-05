@@ -1,0 +1,22 @@
+package simple;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+class SimpleKernel extends Kernel {
+	SimpleKernel(KernelParameters parameters) {
+		super(parameters);
+
+		// Input
+		DFEVar x = io.input("x", dfeFloat(8, 24));
+		DFEVar count = control.count.simpleCounter(32);
+		DFEVar jeddan = constant.var(dfeFloat(8,24), 1);
+		
+		DFEVar result = x / (count.cast(dfeFloat(8,24)) + jeddan) ;
+
+		// Output
+		io.output("y", result, dfeFloat(8, 24));
+	}
+}
+
